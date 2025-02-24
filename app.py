@@ -46,4 +46,6 @@ def home():
     return "Hello, World! Flask is running on Render! 🎉"
 
 # **最後に「1つだけ」実行処理を記述**
-if __name__ == "__main
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
+
