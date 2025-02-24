@@ -29,40 +29,21 @@ def webhook():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_message = event.message.text
-    
-    # OpenAI APIで応答を生成
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[{"role": "user", "content": user_message}]
     )
     reply_text = response["choices"][0]["message"]["content"]
-    
-    # LINEに返信
+
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply_text)
     )
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
-from flask import Flask
-
-app = Flask(__name__)
-
+# **ここでルート（"/"）を設定！**
 @app.route("/")
 def home():
     return "Hello, World! Flask is running on Render! 🎉"
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
-from flask import Flask
-
-app = Flask(__name__)
-
-# ルートURL（"/"）を追加！
-@app.route("/")
-def home():
-    return "Hello, World! Flask is running on Render! 🎉"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+# **最後に「1つだけ」実行処理を記述**
+if __name__ == "__main
