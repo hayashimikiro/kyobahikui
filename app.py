@@ -46,10 +46,10 @@ def handle_message(event):
     user_message = event.message.text
 
     try:
-        # 最新のChatGPT APIの書き方（openai>=1.0.0）
+        # OpenAI APIを使って応答を生成（gpt-4o に変更）
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o",  # ここを "gpt-4o" に変更！
             messages=[{"role": "user", "content": user_message}]
         )
         reply_text = response.choices[0].message.content
@@ -65,5 +65,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
-
 
