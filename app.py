@@ -49,3 +49,23 @@ def home():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
+from flask import Flask, request
+import logging
+
+app = Flask(__name__)
+
+# ログを設定（エラーを詳しく表示）
+logging.basicConfig(level=logging.INFO)
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    try:
+        body = request.get_data(as_text=True)
+        logging.info(f"Received Webhook: {body}")  # Webhookの内容をログに出力
+        return "OK", 200
+    except Exception as e:
+        logging.error(f"Error processing webhook: {str(e)}")  # エラーをログに出力
+        return "Internal Server Error", 500
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
